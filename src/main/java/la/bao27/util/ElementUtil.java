@@ -1,7 +1,10 @@
 package la.bao27.util;
 
+import lombok.Data;
+import lombok.val;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
@@ -11,23 +14,25 @@ import java.util.stream.Collectors;
  * @author Simon
  * @date 2019/7/2 17:01
  */
-public class Element {
+@Data
+public class ElementUtil {
 	private Elements elements;
 	private Document document;
 
-	public Element(String url) {
+	public ElementUtil(String url) {
 		this.document = Jsoup.parse(Request.get(url).body());
 	}
 
-	public Element(String url, String selector) {
+	public ElementUtil(String url, String selector) {
 		this.document = Jsoup.parse(Request.get(url).body());
 		this.elements = document.select(selector);
 	}
-
-	public String getLastAttr(String attr) {
-		return elements.last().attr(attr);
+	public Element getFirstGifImage() {
+		val images = getElements();
+		return images.stream()
+			.filter(s -> s.attr("src").trim().endsWith("gif"))
+			.findFirst().get();
 	}
-
 	public String getText() {
 		return elements.first().text();
 	}

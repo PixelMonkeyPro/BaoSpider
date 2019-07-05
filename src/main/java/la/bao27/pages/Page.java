@@ -1,7 +1,6 @@
 package la.bao27.pages;
 
-import la.bao27.config.Path;
-import la.bao27.util.Element;
+import la.bao27.util.ElementUtil;
 
 import java.util.stream.IntStream;
 
@@ -17,15 +16,11 @@ public class Page extends Urls {
 		this.item = item;
 	}
 
-	public Page() {
-
-	}
-
 	@Override
 	public Page getCurrentResult() {
 		item.parallelStream().forEach(url -> {
-			Element element = new Element(url);
-			int bound = Integer.parseInt(element.getText("a.a1").replaceAll("\\D", ""));
+			ElementUtil elementUtil = new ElementUtil(url);
+			int bound = Integer.parseInt(elementUtil.getText("a.a1").replaceAll("\\D", ""));
 			synchronized (this) {
 				add(url);
 				IntStream.rangeClosed(2, bound).forEach(i -> add(url.replace(".html", "_" + i + ".html")));
@@ -33,10 +28,5 @@ public class Page extends Urls {
 		});
 		toFile();
 		return this;
-	}
-
-	@Override
-	public String getFilePath() {
-		return Path.getPage();
 	}
 }

@@ -16,7 +16,11 @@ import java.util.ArrayList;
 
 public interface JSONIO {
 
-	String getFilePath();
+	default String getFilePath() {
+		val basePath = new File("").getAbsolutePath();
+		val className = this.getClass().getSimpleName();
+		return basePath + File.separator + "url" + File.separator + className + ".json";
+	}
 
 	@SneakyThrows
 	default void toFile() {
@@ -44,6 +48,7 @@ public interface JSONIO {
 		while (reader.ready()) {
 			content.append(reader.readLine());
 		}
-		return JSON.parseObject(content.toString(), new TypeReference<ArrayList<T>>() {});
+		return JSON.parseObject(content.toString(), new TypeReference<ArrayList<T>>() {
+		});
 	}
 }

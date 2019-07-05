@@ -16,13 +16,12 @@ public interface Result extends JSONIO{
 	}
 	default Urls getResult() {
 		val className = this.getClass().getSimpleName();
-		System.out.println(className + " is working...");
 		Optional<Urls> optional = Optional.ofNullable(getPreviousResult());
 		if (optional.isPresent()) {
-			System.out.println(className+ ": use previous result");
+			System.out.println(className+ ": use previous result,");
 			return optional.get();
 		}
-		System.out.println(className+ ": get current result");
+		System.out.println(className+ ": get current result,");
 		return getCurrentResult();
 	}
 }

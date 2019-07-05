@@ -1,7 +1,6 @@
 package la.bao27.pages;
 
-import la.bao27.config.Path;
-import la.bao27.util.Element;
+import la.bao27.util.ElementUtil;
 import lombok.extern.java.Log;
 import lombok.val;
 
@@ -19,22 +18,14 @@ public class List extends Urls {
 	}
 
 	private static int getBound() {
-		val element = new Element(joinUrl(1),"body > section > center > div > a:last-child");
+		val element = new ElementUtil(joinUrl(1),"body > section > center > div > a:last-child");
 		return Integer.valueOf(element.getAttr("href").replaceAll("\\D", ""));
 	}
 
 	@Override
-	public String getFilePath() {
-		return Path.getList();
-	}
-
-	@Override
 	public List getCurrentResult() {
-		int bound = getBound();
-		log.info("listBound: "+ bound);
-		IntStream.rangeClosed(1, bound).forEach(i -> add(joinUrl(i)));
+		IntStream.rangeClosed(1, getBound()).forEach(i -> add(joinUrl(i)));
 		toFile();
-		log.info("list toFile finish");
 		return this;
 	}
 }

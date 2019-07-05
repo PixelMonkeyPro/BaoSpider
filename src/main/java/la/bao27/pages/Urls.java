@@ -1,6 +1,7 @@
 package la.bao27.pages;
 
 import la.bao27.interfaces.Result;
+import lombok.val;
 
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public abstract class Urls<T> extends ArrayList<T> implements Result {
 
 	public static Urls from(ArrayList urls) {
-		Urls u = new Urls() {
+		val u = new Urls() {
 			@Override
 			public Urls getCurrentResult() {
 				return null;

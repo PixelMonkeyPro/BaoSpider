@@ -28,6 +28,12 @@ hs_err_pid*
 .gradle
 /build/
 
+### Custom
+/url/List.json
+/url/Item.json
+/url/Page.json
+/url/Images.json
+
 # Ignore Gradle GUI config
 gradle-app.setting
 
@@ -36,6 +42,3 @@ gradle-app.setting
 
 # Cache of project
 .gradletasknamecache
-
-# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
-# gradle/wrapper/gradle-wrapper.properties

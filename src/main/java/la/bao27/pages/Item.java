@@ -1,7 +1,6 @@
 package la.bao27.pages;
 
-import la.bao27.config.Path;
-import la.bao27.util.Element;
+import la.bao27.util.ElementUtil;
 
 import java.util.ArrayList;
 
@@ -20,18 +19,13 @@ public class Item extends Urls {
 	@Override
 	public Item getCurrentResult() {
 		list.parallelStream().forEach(url -> {
-			Element element = new Element(url, "body > section > ul > li > a");
-			ArrayList<String> href = element.getAttrs("href");
+			ElementUtil elementUtil = new ElementUtil(url, "body > section > ul > li > a");
+			ArrayList<String> href = elementUtil.getAttrs("href");
 			synchronized (this) {
 				this.addAll(href);
 			}
 		});
 		toFile();
 		return this;
-	}
-
-	@Override
-	public String getFilePath() {
-		return Path.getItem();
 	}
 }
